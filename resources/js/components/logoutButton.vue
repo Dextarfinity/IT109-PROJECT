@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
 .logout-button {
-  padding: 10px 20px;
+  padding: 1px 10px;
   background-color: #f44336; /* Red background */
   color: white;
   border: none;

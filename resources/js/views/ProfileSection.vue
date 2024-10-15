@@ -2,69 +2,66 @@
   <Navbar />
   <section
     id="profile"
-    class="gradient h-screen bg-cover bg-center relative flex items-center justify-center"
+    class="min-h-screen bg-gradient-to-r from-[#4a0e0e] via-[#3d2617] to-[#5e4d1f] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center"
   >
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" style="z-index: 1">
-      <h2
-        class="text-4xl font-extrabold text-center mb-8 animate-fade-in-down text-white"
-      >
-        Student ID Card
-      </h2>
-      <div class="bg-white rounded-lg shadow-md p-6 sm:p-8 animate-fade-in">
-        <div class="flex:col items-center md:items-stretch space-y-8 sm:space-y-4">
-          <!-- Image Section -->
-          <div class="w-full flex flex-col items-center justify-center">
-            <div
-              v-if="avatarUrl"
-              class="w-full flex flex-col items-center justify-center"
-            >
-              <img
-                :src="avatarUrl"
-                alt="Avatar"
-                class="w-full h-auto rounded-full shadow-md"
-                style="height: 150px; width: 150px"
-              />
-            </div>
-            <div
-              v-else
-              class="flex items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-full"
-              style="width: 150px; height: 150px"
-            >
-              <i class="bx bx-user text-gray-400 text-6xl"></i>
-            </div>
-            <input
-              type="file"
-              @change="handleAvatarUpload"
-              class="mt-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
-          </div>
 
-          <!-- Details Section -->
-          <div class="w-full text-left">
-            <h3
-              class="text-2xl font-semibold mb-2 mt-3"
-              style="text-align: left; color: black"
-            >
-              {{ user.name }}
-            </h3>
-            <p class="text-gray-700 mb-2" style="text-align: left">
-              Email: {{ user.email }}
-            </p>
-
-            <!-- Phone Number Section -->
-            <div class="pr-6" style="text-align: left">
-              <div class="flex items-center space-x-4">
-                <label for="phone" class="text-gray-700">Phone:</label>
-                <div
-                  class="border border-gray-300 rounded-lg p-2 w-full"
-                  style="color: black; background-color: white"
-                >
-                  {{ user.phone }}
-                </div>
+    <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5">
+      <div class="bg-gray-100 p-8 relative">
+        <div class="absolute inset-0 bg-opacity-50 bg-gray-200">
+          <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+            <pattern id="pattern-circles" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="1.6" fill="#a0aec0" />
+            </pattern>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)" />
+          </svg>
+        </div>
+        <div class="relative z-10">
+          <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">User Profile</h2>
+          <div class="flex flex-col items-center mb-6">
+            <div class="mb-4">
+              <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-black shadow-lg bg-white">
+                <img
+                  :src="avatarUrl || '/placeholder.svg?height=128&width=128'"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
               </div>
             </div>
+            <h3 class="text-2xl font-semibold text-gray-800">{{ user.name }}</h3>
+            <p class="text-gray-600">Student</p>
           </div>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+              <MailIcon class="w-5 h-5 text-black" />
+              <p class="text-gray-700">{{ user.email }}</p>
+            </div>
+            <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+              <PhoneIcon class="w-5 h-5 text-black" />
+              <p class="text-gray-700">{{ user.phone }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-8">
+        <div>
+          <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <ClockIcon class="w-6 h-6 text-black mr-2" />
+            Recent Rides
+          </h4>
+          <ul class="space-y-3">
+            <li v-for="ride in recentRides" :key="ride.id" class="bg-gray-50 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-500">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">{{ ride.date }}</span>
+                <span class="text-sm font-medium text-lime-500">{{ ride.status }}</span>
+              </div>
+              <div class="mt-1 text-gray-800 flex items-center">
+                <MapPinIcon class="w-4 h-4 text-black mr-1" />
+                {{ ride.from }} 
+                <ArrowRightIcon class="w-4 h-4 text-black mx-1" />
+                {{ ride.to }}
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -72,73 +69,34 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
+import { UserIcon, MailIcon, PhoneIcon, ClockIcon, MapPinIcon, ArrowRightIcon } from 'lucide-vue-next';
+import Navbar from "@/components/body.vue"; // Import Navbar from components
 
-// Define the user object with ref
+
+
 const user = ref({
-  name: "John Doe",
-  email: "john.doe@example.com",
-  phone: "123-456-7890",
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  phone: '+1 234 567 8900',
 });
 
-// Define avatarUrl as a reactive ref
 const avatarUrl = ref(null);
 
-// Function to handle avatar upload
-const handleAvatarUpload = (event) => {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith("image/")) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      avatarUrl.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    alert("Please upload a valid image file.");
-  }
-};
-</script>
-
-<script>
-import Navbar from "@/components/body.vue";
-export default {
-  name: "ProfileSection",
-  components: {
-    Navbar,
-  },
-};
+const recentRides = ref([
+  { id: 1, date: 'May 15, 2023', from: 'CED', to: 'HOSTEL', status: 'Completed' },
+  { id: 2, date: 'May 14, 2023', from: 'LIBRARY', to: 'CCIS', status: 'Completed' },
+  { id: 3, date: 'May 13, 2023', from: 'NEW ADMIN', to: 'KINAADMAN', status: 'Completed' },
+]);
 </script>
 
 <style scoped>
-.gradient {
-  background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
-}
-/* Optional animation styles if you're using them */
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-down {
-  animation: fadeInDown 0.5s ease-out;
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease-in-out;
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
