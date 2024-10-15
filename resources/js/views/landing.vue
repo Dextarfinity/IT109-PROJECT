@@ -137,6 +137,7 @@
               <ol class="carousel__viewport">
                 <li id="carousel__slide1" tabindex="0" class="carousel__slide">
                   <div class="carousel__snapper">
+                    <img src="./images/carousel1.png" alt="Image 1" />
                     <a href="#carousel__slide4" class="carousel__prev"
                       >Go to last slide</a
                     >
@@ -146,25 +147,37 @@
                   </div>
                 </li>
                 <li id="carousel__slide2" tabindex="0" class="carousel__slide">
-                  <div class="carousel__snapper"></div>
-                  <a href="#carousel__slide1" class="carousel__prev"
-                    >Go to previous slide</a
-                  >
-                  <a href="#carousel__slide3" class="carousel__next">Go to next slide</a>
+                  <div class="carousel__snapper">
+                    <img src="./images/carousel2.png" alt="Image 2" />
+                    <a href="#carousel__slide1" class="carousel__prev"
+                      >Go to previous slide</a
+                    >
+                    <a href="#carousel__slide3" class="carousel__next"
+                      >Go to next slide</a
+                    >
+                  </div>
                 </li>
                 <li id="carousel__slide3" tabindex="0" class="carousel__slide">
-                  <div class="carousel__snapper"></div>
-                  <a href="#carousel__slide2" class="carousel__prev"
-                    >Go to previous slide</a
-                  >
-                  <a href="#carousel__slide4" class="carousel__next">Go to next slide</a>
+                  <div class="carousel__snapper">
+                    <img src="./images/carousel3.png" alt="Image 3" />
+                    <a href="#carousel__slide2" class="carousel__prev"
+                      >Go to previous slide</a
+                    >
+                    <a href="#carousel__slide4" class="carousel__next"
+                      >Go to next slide</a
+                    >
+                  </div>
                 </li>
                 <li id="carousel__slide4" tabindex="0" class="carousel__slide">
-                  <div class="carousel__snapper"></div>
-                  <a href="#carousel__slide3" class="carousel__prev"
-                    >Go to previous slide</a
-                  >
-                  <a href="#carousel__slide1" class="carousel__next">Go to first slide</a>
+                  <div class="carousel__snapper">
+                    <img src="./images/carousel4.png" alt="Image 4" />
+                    <a href="#carousel__slide3" class="carousel__prev"
+                      >Go to previous slide</a
+                    >
+                    <a href="#carousel__slide1" class="carousel__next"
+                      >Go to first slide</a
+                    >
+                  </div>
                 </li>
               </ol>
               <aside class="carousel__navigation">
@@ -799,7 +812,7 @@ li {
 
 .carousel {
   position: relative;
-  padding-top: 75%;
+  padding-top: 60%;
   filter: drop-shadow(0 0 10px #0003);
   perspective: 100px;
 }
@@ -821,13 +834,13 @@ li {
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  background-color: #f99;
+  background-color: rgb(255, 255, 255);
   counter-increment: item;
   outline: none;
 }
 
 .carousel__slide:nth-child(even) {
-  background-color: #99f;
+  background-color: rgb(255, 255, 255);
 }
 
 .carousel__slide:before {
@@ -904,7 +917,7 @@ li {
 .carousel__next {
   position: absolute;
   top: 0;
-  margin-top: 37.5%;
+  margin-top: 30.5%;
   width: 4rem;
   height: 4rem;
   transform: translateY(-50%);
@@ -1005,98 +1018,97 @@ li {
 export default {
   name: "Landing",
   mounted() {
-    var scrollpos = window.scrollY;
-    var header = document.getElementById("header");
-    var navcontent = document.getElementById("nav-content");
-    var navaction = document.getElementById("navAction");
-    var brandname = document.getElementById("brandname");
-    var toToggle = document.querySelectorAll(".toggleColour");
+    let scrollpos = window.scrollY;
+    const header = document.getElementById("header");
+    const navcontent = document.getElementById("nav-content");
+    const navaction = document.getElementById("navAction");
+    const toToggle = document.querySelectorAll(".toggleColour");
+    const navMenuDiv = document.getElementById("nav-content");
+    const navMenu = document.getElementById("nav-toggle");
 
-    document.addEventListener("scroll", function () {
-      /*Apply classes for slide in bar*/
+    // Scroll event handler
+    document.addEventListener("scroll", () => {
       scrollpos = window.scrollY;
 
       if (scrollpos > 10) {
-        header.classList.add("bg-white");
-        navaction.classList.remove("bg-white");
-        navaction.classList.add("gradient");
-        navaction.classList.remove("text-gray-800");
-        navaction.classList.add("text-white");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-gray-800");
-          toToggle[i].classList.remove("text-white");
+        // Check if header exists before adding/removing classes
+        if (header) {
+          header.classList.add("bg-white", "shadow");
         }
-        header.classList.add("shadow");
-        navcontent.classList.remove("bg-gray-100");
-        navcontent.classList.add("bg-white");
-      } else {
-        header.classList.remove("bg-white");
-        navaction.classList.remove("gradient");
-        navaction.classList.add("bg-white");
-        navaction.classList.remove("text-white");
-        navaction.classList.add("text-gray-800");
-        //Use to switch toggleColour colours
-        for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("text-white");
-          toToggle[i].classList.remove("text-gray-800");
+        if (navaction) {
+          navaction.classList.replace("bg-white", "gradient");
+          navaction.classList.replace("text-gray-800", "text-white");
         }
 
-        header.classList.remove("shadow");
-        navcontent.classList.remove("bg-white");
-        navcontent.classList.add("bg-gray-100");
+        toToggle.forEach((el) => {
+          if (el) {
+            el.classList.replace("text-white", "text-gray-800");
+          }
+        });
+
+        if (navcontent) {
+          navcontent.classList.replace("bg-gray-100", "bg-white");
+        }
+      } else {
+        if (header) {
+          header.classList.remove("bg-white", "shadow");
+        }
+        if (navaction) {
+          navaction.classList.replace("gradient", "bg-white");
+          navaction.classList.replace("text-white", "text-gray-800");
+        }
+
+        toToggle.forEach((el) => {
+          if (el) {
+            el.classList.replace("text-gray-800", "text-white");
+          }
+        });
+
+        if (navcontent) {
+          navcontent.classList.replace("bg-white", "bg-gray-100");
+        }
       }
     });
-    /*Toggle dropdown list*/
-    /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
 
-    var navMenuDiv = document.getElementById("nav-content");
-    var navMenu = document.getElementById("nav-toggle");
-
+    // Carousel button event handler
     document
       .querySelectorAll(".carousel__next, .carousel__prev, .carousel__navigation-button")
       .forEach((link) => {
         link.addEventListener("click", function (event) {
-          event.preventDefault(); // Prevent the browser from scrolling to the target
-          const targetId = this.getAttribute("href").substring(1); // Get the target slide id
-          document.getElementById(targetId).scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "start",
-          });
+          event.preventDefault();
+          const targetId = this.getAttribute("href").substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "start",
+            });
+          }
         });
       });
 
-    document.onclick = check;
-    function check(e) {
-      var target = (e && e.target) || (event && event.srcElement);
+    // Handle nav menu toggle
+    document.onclick = function (e) {
+      const target = e.target || e.srcElement;
 
-      //Nav Menu
-      if (!checkParent(target, navMenuDiv)) {
-        // click NOT on the menu
-        if (checkParent(target, navMenu)) {
-          // click on the link
-          if (navMenuDiv.classList.contains("hidden")) {
-            navMenuDiv.classList.remove("hidden");
-          } else {
-            navMenuDiv.classList.add("hidden");
-          }
-        } else {
-          // click both outside link and outside menu, hide menu
+      if (navMenuDiv && navMenu) {
+        if (!checkParent(target, navMenuDiv) && checkParent(target, navMenu)) {
+          navMenuDiv.classList.toggle("hidden");
+        } else if (!checkParent(target, navMenuDiv)) {
           navMenuDiv.classList.add("hidden");
         }
       }
-    }
+    };
+
+    // Helper function to check if a target is a child of a specific element
     function checkParent(t, elm) {
       while (t.parentNode) {
-        if (t == elm) {
-          return true;
-        }
+        if (t === elm) return true;
         t = t.parentNode;
       }
       return false;
     }
   },
-  methods: {},
 };
 </script>
