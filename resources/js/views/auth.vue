@@ -59,12 +59,20 @@
       id="form-wrapper"
       class="formwrap max-w-md w-full rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 welcome_style"
     >
-      <div id="form-container" :class="{ 'signup-active': currentForm === 'signup' }">
+      <div
+        id="form-container"
+        :class="{ 'signup-active': currentForm === 'signup' }"
+      >
         <!-- Login Form -->
         <div id="login-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">WELCOME</h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">
+            WELCOME
+          </h2>
           <p class="text-center text-black">Sign in to your account</p>
-          <form @submit.prevent="handleSubmit('login')" class="space-y-6 text-black">
+          <form
+            @submit.prevent="handleSubmit('login')"
+            class="space-y-6 text-black"
+          >
             <div class="relative">
               <input
                 v-model="loginEmail"
@@ -132,9 +140,14 @@
 
         <!-- Sign Up Form -->
         <div id="signup-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">SIGN UP</h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">
+            SIGN UP
+          </h2>
           <p class="text-center text-black">Create your account</p>
-          <form @submit.prevent="handleSubmit('signup')" class="space-y-6 text-black">
+          <form
+            @submit.prevent="handleSubmit('signup')"
+            class="space-y-6 text-black"
+          >
             <div class="relative">
               <input
                 v-model="fullname"
@@ -145,12 +158,11 @@
                 type="text"
                 maxlength="50"
                 required
-                @keypress.enter="validateFullname"
-                @input="clearNameError"
+                @input="validateFullname"
               />
-              <p id="nameError" class="text-error">{{ nameError }}</p>
+              <p id="nameError" class="text-red-500">{{ nameError }}</p>
               <label
-                class="absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-fullname"
                 >Full Name</label
               >
@@ -168,9 +180,29 @@
                 required
               />
               <label
-                class="absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-email"
                 >Email address</label
+              >
+            </div>
+
+            <div class="relative">
+              <input
+                v-model="phone_number"
+                placeholder="Phone number"
+                class="peer h-10 w-full border-b-2 border-black text-black bg-transparent placeholder-transparent focus:outline-none focus:border-black"
+                id="number"
+                name="number"
+                type="text"
+                 maxlength="11"
+                required
+                @input="validateNumber"
+              />
+              <p id="numberError" class="text-red-500">{{ numberError }}</p>
+              <label
+                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                for="number"
+                >Phone number</label
               >
             </div>
 
@@ -184,14 +216,11 @@
                 type="password"
                 maxlength="50"
                 required
-                @keypress.enter="validatePassword"
-                @input="clearPasswordError"
+                @input="validatePassword"
               />
-              <p id="confirmPasswordError" class="invalid">
-                {{ confirmPasswordError }}
-              </p>
+              <p id="passwordError" class="text-red-500">{{ passwordError }}</p>
               <label
-                class="absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-password"
                 >Password</label
               >
@@ -210,11 +239,11 @@
                 required
                 @keypress.enter="validateConfirmPassword"
               />
-              <p id="confirmPasswordError" class="text-error">
+              <p id="confirmPasswordError" class="text-red-500">
                 {{ confirmPasswordError }}
               </p>
               <label
-                class="absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-confirm-password"
                 >Confirm Password</label
               >
@@ -244,7 +273,7 @@
 </template>
 
 <script>
-import { supabase } from "../supabaseClient"; // Adjust the path according to your project structure
+import { supabase } from "../supabaseClient"; // supabase link
 import { useRouter } from "vue-router";
 
 export default {
@@ -252,15 +281,20 @@ export default {
   data() {
     return {
       currentForm: "login",
+      //for signup
       fullname: "",
       email: "",
+      phone_number: "",
       password: "",
-      confirmPassword: "", // Add confirmPassword to the data
+      confirmPassword: "",
+      //for login
       loginEmail: "",
       loginPassword: "",
+      //for identifying error
       nameError: "",
+      numberError: "",
       passwordError: "",
-      confirmPasswordError: "", // Add confirmPasswordError to the data
+      confirmPasswordError: "",
     };
   },
   setup() {
@@ -268,6 +302,90 @@ export default {
     return { router };
   },
   methods: {
+    //for validations of input
+    validateFullname() {
+      try {
+        if (!this.fullname.trim()) throw new Error("Empty-name");
+        if (this.fullname.length < 10) throw new Error("short");
+        if (!/^[A-Za-z\s]+$/.test(this.fullname))
+          throw new Error("invalidName");
+        this.nameError = ""; // Clear error if validation passes
+        return true;
+      } catch (error) {
+        if (error.message === "Empty-name") {
+          this.nameError = "Full name is required.";
+        } else if (error.message === "short") {
+          this.nameError = "Name should be at least 10 characters long.";
+        } else if (error.message === "invalidName") {
+          this.nameError = "Name can only contain letters and spaces.";
+        }
+        // Clear the error after 2 seconds
+        // setTimeout(() => {
+        //   this.nameError = "";
+        // }, 1000);
+        return false;
+      }
+    },
+    
+    validateNumber() {
+      try {
+        this.phone_number = this.phone_number.replace(/[^0-9]/g, "");
+
+        if (!this.phone_number.trim()) throw new Error("Empty-number");
+        if (this.phone_number.length < 11) throw new Error("shortNum"); // Check if less than 11
+        this.numberError = ""; // Clear error if validation passes
+        return true;
+      } catch (error) {
+        if (error.message === "Empty-number") {
+          this.numberError = "Number field is empty. Please enter your number.";
+        } else if (error.message === "shortNum") {
+          this.numberError =
+            "Phone number should be 11 digits long.";
+        }
+        return false;
+      }
+    },
+    validatePassword() {
+      try {
+        if (!this.password.trim()) throw new Error("Empty-password");
+        if (this.password.length < 8) throw new Error("shortPassword");
+        if (!/[A-Z]/.test(this.password)) throw new Error("noUppercase");
+        if (!/[a-z]/.test(this.password)) throw new Error("noLowercase");
+        if (!/[0-9]/.test(this.password)) throw new Error("noDigit");
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password))
+          throw new Error("noSpecialCharacter");
+        this.passwordError = ""; // Clear error if validation passes
+        return true;
+      } catch (error) {
+        if (error.message === "Empty-password") {
+          this.passwordError =
+            "Password field is empty. Please enter a password.";
+        } else if (error.message === "shortPassword") {
+          this.passwordError = "Password should be at least 8 characters long.";
+        } else if (error.message === "noUppercase") {
+          this.passwordError =
+            "Password must contain at least one uppercase letter.";
+        } else if (error.message === "noLowercase") {
+          this.passwordError =
+            "Password must contain at least one lowercase letter.";
+        } else if (error.message === "noDigit") {
+          this.passwordError = "Password must contain at least one digit.";
+        } else if (error.message === "noSpecialCharacter") {
+          this.passwordError =
+            "Password must contain at least one special character.";
+        }
+        return false;
+      }
+    },
+    validateConfirmPassword() {
+      if (this.confirmPassword !== this.password) {
+        this.confirmPasswordError = "Passwords do not match.";
+        return false;
+      }
+      this.confirmPasswordError = ""; // Clear error if validation passes
+      return true;
+    },
+
     toggleForm(formType) {
       this.currentForm = formType;
     },
@@ -283,7 +401,7 @@ export default {
             if (error) throw error;
 
             // Redirect to HomeSection.vue upon successful login
-            this.router.push("/homesec"); // Adjust the route as needed
+            this.$router.push("/homesec"); // Adjust the route as needed
           } catch (error) {
             alert(`Login error: ${error.message}`);
           }
@@ -296,21 +414,49 @@ export default {
           this.validatePassword() &&
           this.validateConfirmPassword() // Validate confirm password
         ) {
+          console.log("Full Name:", this.fullname);
+          console.log("Email:", this.email);
+          console.log("number:", this.phone_number  );
+          console.log("Password:", this.password);
+
           try {
-            const { error } = await supabase.auth.signUp({
+            const { data, error } = await supabase.auth.signUp({
               email: this.email,
               password: this.password,
-              options: {
-                data: {
-                  fullname: this.fullname, // Store fullname in Supabase
-                },
-              },
             });
 
-            if (error) throw error;
+            if (error) {
+              throw error;
+            }
+
+            const user_id = data.user?.id; // Safe check for user ID
+            if (!user_id) {
+              console.error("User ID is null");
+              throw new Error("Failed to get user ID during signup");
+            }
+
+            // Save user ID to localStorage
+            localStorage.setItem("user_id", user_id);
+
+            // Insert user info into the "users_info" table
+            const { error: insertError } = await supabase
+              .from("users_info")
+              .insert([
+                {
+                  id: user_id,
+                  email: this.email,
+                  phone_number: this.phone_number,
+                  fullname: this.fullname,
+                },
+              ]); // Ensure you're inserting the correct ID
+
+            if (insertError) {
+              console.error("Insert error:", insertError.message);
+              throw new Error("Unable to save user details");
+            }
 
             // Redirect to HomeSection.vue upon successful signup
-            this.router.push("/homesec"); // Adjust the route as needed
+            this.$router.push("/homesec"); // Adjust the route as needed
           } catch (error) {
             alert(`Signup error: ${error.message}`);
           }
@@ -318,72 +464,6 @@ export default {
           alert("Please correct the errors in the signup form.");
         }
       }
-    },
-    clearNameError() {
-      this.nameError = "";
-    },
-    clearPasswordError() {
-      this.passwordError = "";
-      this.confirmPasswordError = ""; // Clear confirm password error
-    },
-    validateFullname() {
-      try {
-        if (!this.fullname.trim()) throw new Error("Empty-name");
-        if (this.fullname.length < 10) throw new Error("short");
-        if (!/^[A-Za-z\s]+$/.test(this.fullname)) throw new Error("invalidName");
-        this.nameError = ""; // Clear error if validation passes
-        return true;
-      } catch (error) {
-        if (error.message === "Empty-name") {
-          this.nameError = "Full name is required.";
-          this.fullname = ""; // Clear the fullname field if it's wrong
-        } else if (error.message === "short") {
-          this.nameError = "Name should be at least 10 characters long.";
-          this.fullname = ""; // Clear the fullname field if it's wrong
-        } else if (error.message === "invalidName") {
-          this.nameError = "Name can only contain letters and spaces.";
-          this.fullname = ""; // Clear the fullname field if it's wrong
-        }
-        return false;
-      }
-    },
-    validatePassword() {
-      try {
-        if (!this.password.trim()) throw new Error("Empty-password");
-        if (this.password.length < 8) throw new Error("shortPassword");
-        if (!/[A-Z]/.test(this.password)) throw new Error("noUppercase");
-        if (!/[a-z]/.test(this.password)) throw new Error("noLowercase");
-        if (!/[0-9]/.test(this.password)) throw new Error("noDigit");
-        this.passwordError = ""; // Clear error if validation passes
-        return true;
-      } catch (error) {
-        if (error.message === "Empty-password") {
-          this.passwordError = "Password field is empty. Please enter a password.";
-          this.password = ""; // Clear the password field if it's wrong
-        } else if (error.message === "shortPassword") {
-          this.passwordError = "Password should be at least 8 characters long.";
-          this.password = ""; // Clear the password field if it's wrong
-        } else if (error.message === "noUppercase") {
-          this.passwordError = "Password must contain at least one uppercase letter.";
-          this.password = ""; // Clear the password field if it's wrong
-        } else if (error.message === "noLowercase") {
-          this.passwordError = "Password must contain at least one lowercase letter.";
-          this.password = ""; // Clear the password field if it's wrong
-        } else if (error.message === "noDigit") {
-          this.passwordError = "Password must contain at least one digit.";
-          this.password = ""; // Clear the password field if it's wrong
-        }
-        return false;
-      }
-    },
-    validateConfirmPassword() {
-      if (this.confirmPassword !== this.password) {
-        this.confirmPasswordError = "Passwords do not match.";
-        this.confirmPassword = ""; // Clear the confirm password field if it doesn't match
-        return false;
-      }
-      this.confirmPasswordError = ""; // Clear error if validation passes
-      return true;
     },
   },
 };
