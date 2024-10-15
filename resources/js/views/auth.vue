@@ -244,6 +244,9 @@
 </template>
 
 <script>
+import { supabase } from "../supabaseClient"; // Adjust the path according to your project structure
+import { useRouter } from "vue-router";
+
 export default {
   name: "Auth",
   data() {
@@ -260,16 +263,30 @@ export default {
       confirmPasswordError: "", // Add confirmPasswordError to the data
     };
   },
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   methods: {
     toggleForm(formType) {
       this.currentForm = formType;
     },
-    handleSubmit(formType) {
+    async handleSubmit(formType) {
       if (formType === "login") {
         if (this.loginEmail && this.loginPassword) {
-          console.log("Email:", this.loginEmail);
-          console.log("Password:", this.loginPassword);
-          // Add your logic for login form submission here (e.g., call an API)
+          try {
+            const { error } = await supabase.auth.signInWithPassword({
+              email: this.loginEmail,
+              password: this.loginPassword,
+            });
+
+            if (error) throw error;
+
+            // Redirect to HomeSection.vue upon successful login
+            this.router.push("/homesec"); // Adjust the route as needed
+          } catch (error) {
+            alert(`Login error: ${error.message}`);
+          }
         } else {
           alert("Please fill in all fields for login.");
         }
@@ -279,10 +296,24 @@ export default {
           this.validatePassword() &&
           this.validateConfirmPassword() // Validate confirm password
         ) {
-          console.log("Full Name:", this.fullname);
-          console.log("Email:", this.email);
-          console.log("Password:", this.password);
-          // Add your logic for signup form submission here (e.g., call an API)
+          try {
+            const { error } = await supabase.auth.signUp({
+              email: this.email,
+              password: this.password,
+              options: {
+                data: {
+                  fullname: this.fullname, // Store fullname in Supabase
+                },
+              },
+            });
+
+            if (error) throw error;
+
+            // Redirect to HomeSection.vue upon successful signup
+            this.router.push("/homesec"); // Adjust the route as needed
+          } catch (error) {
+            alert(`Signup error: ${error.message}`);
+          }
         } else {
           alert("Please correct the errors in the signup form.");
         }
