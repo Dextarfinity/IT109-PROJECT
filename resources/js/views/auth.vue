@@ -46,6 +46,16 @@
     </g>
   </svg>
   <div
+    :class="[
+      'transparency fixed top-5 left-1/2 transform -translate-x-1/2 z-50 p-4 rounded shadow-lg transition-opacity duration-500',
+      toastVisible ? 'opacity-100' : 'opacity-0',
+      toastColor,
+    ]"
+    @transitionend="onTransitionEnd"
+  >
+    <span>{{ toastMessage }}</span>
+  </div>
+  <div
     class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center bg-white authbody"
   >
     <!--Left Col-->
@@ -59,20 +69,12 @@
       id="form-wrapper"
       class="formwrap max-w-md w-full rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 welcome_style"
     >
-      <div
-        id="form-container"
-        :class="{ 'signup-active': currentForm === 'signup' }"
-      >
+      <div id="form-container" :class="{ 'signup-active': currentForm === 'signup' }">
         <!-- Login Form -->
         <div id="login-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">
-            WELCOME
-          </h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">WELCOME</h2>
           <p class="text-center text-black">Sign in to your account</p>
-          <form
-            @submit.prevent="handleSubmit('login')"
-            class="space-y-6 text-black"
-          >
+          <form @submit.prevent="handleSubmit('login')" class="space-y-6 text-black">
             <div class="relative">
               <input
                 v-model="loginEmail"
@@ -140,14 +142,9 @@
 
         <!-- Sign Up Form -->
         <div id="signup-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">
-            SIGN UP
-          </h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">SIGN UP</h2>
           <p class="text-center text-black">Create your account</p>
-          <form
-            @submit.prevent="handleSubmit('signup')"
-            class="space-y-6 text-black"
-          >
+          <form @submit.prevent="handleSubmit('signup')" class="space-y-6 text-black">
             <div class="relative">
               <input
                 v-model="fullname"
@@ -295,6 +292,10 @@ export default {
       numberError: "",
       passwordError: "",
       confirmPasswordError: "",
+      // for toast
+      toastMessage: "",
+      toastVisible: false,
+      toastColor: "",
     };
   },
   setup() {
@@ -302,13 +303,26 @@ export default {
     return { router };
   },
   methods: {
+    // Toast functions
+    showToast(message, type) {
+      this.toastMessage = message;
+      this.toastColor =
+        type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white";
+      this.toastVisible = true;
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    },
+    hideToast() {
+      this.toastVisible = false;
+    },
+
     //for validations of input
     validateFullname() {
       try {
         if (!this.fullname.trim()) throw new Error("Empty-name");
         if (this.fullname.length < 10) throw new Error("short");
-        if (!/^[A-Za-z\s]+$/.test(this.fullname))
-          throw new Error("invalidName");
+        if (!/^[A-Za-z\s]+$/.test(this.fullname)) throw new Error("invalidName");
         this.nameError = ""; // Clear error if validation passes
         return true;
       } catch (error) {
@@ -319,10 +333,6 @@ export default {
         } else if (error.message === "invalidName") {
           this.nameError = "Name can only contain letters and spaces.";
         }
-        // Clear the error after 2 seconds
-        // setTimeout(() => {
-        //   this.nameError = "";
-        // }, 1000);
         return false;
       }
     },
@@ -330,10 +340,9 @@ export default {
     validateNumber() {
       try {
         this.phone_number = this.phone_number.replace(/[^0-9]/g, "");
-
         if (!this.phone_number.trim()) throw new Error("Empty-number");
-        if (this.phone_number.length < 11) throw new Error("shortNum"); // Check if less than 11
-        this.numberError = ""; // Clear error if validation passes
+        if (this.phone_number.length < 11) throw new Error("shortNum");
+        this.numberError = "";
         return true;
       } catch (error) {
         if (error.message === "Empty-number") {
@@ -353,26 +362,10 @@ export default {
         if (!/[0-9]/.test(this.password)) throw new Error("noDigit");
         if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password))
           throw new Error("noSpecialCharacter");
-        this.passwordError = ""; // Clear error if validation passes
+        this.passwordError = "";
         return true;
       } catch (error) {
-        if (error.message === "Empty-password") {
-          this.passwordError =
-            "Password field is empty. Please enter a password.";
-        } else if (error.message === "shortPassword") {
-          this.passwordError = "Password should be at least 8 characters long.";
-        } else if (error.message === "noUppercase") {
-          this.passwordError =
-            "Password must contain at least one uppercase letter.";
-        } else if (error.message === "noLowercase") {
-          this.passwordError =
-            "Password must contain at least one lowercase letter.";
-        } else if (error.message === "noDigit") {
-          this.passwordError = "Password must contain at least one digit.";
-        } else if (error.message === "noSpecialCharacter") {
-          this.passwordError =
-            "Password must contain at least one special character.";
-        }
+        this.passwordError = error.message;
         return false;
       }
     },
@@ -381,101 +374,79 @@ export default {
         this.confirmPasswordError = "Passwords do not match.";
         return false;
       }
-      this.confirmPasswordError = ""; // Clear error if validation passes
+      this.confirmPasswordError = "";
       return true;
     },
 
     toggleForm(formType) {
       this.currentForm = formType;
     },
+
     async handleSubmit(formType) {
       if (formType === "login") {
         if (this.loginEmail && this.loginPassword) {
           try {
-            // Correctly destructure data from the signInWithPassword response
             const { data, error } = await supabase.auth.signInWithPassword({
               email: this.loginEmail,
               password: this.loginPassword,
             });
 
-            // Handle any errors returned from Supabase
             if (error) throw error;
 
-            // Retrieve session and user from the response
-            let session = data.session; // Correctly accessing the session
-            let user = data.user; // Correctly accessing the user
-
-            // If the user account is not confirmed
+            let session = data.session;
             if (session) {
-              // Check if session is not null
               localStorage.setItem("access_token", session.access_token);
               localStorage.setItem("refresh_token", session.refresh_token);
             }
-            // Redirect to HomeSection.vue upon successful login
-            this.$router.push("/homesec"); // Adjust the route as needed
+
+            // Show success toast on login
+            this.showToast("Login successful!", "success");
+            this.$router.push("/homesec");
           } catch (error) {
-            alert(`Login error: ${error.message}`);
+            this.showToast(`Login error: ${error.message}`, "error");
           }
         } else {
-          alert("Please fill in all fields for login.");
+          this.showToast("Please fill in all fields for login.", "error");
         }
       } else if (formType === "signup") {
         if (
           this.validateFullname() &&
           this.validatePassword() &&
           this.validateNumber() &&
-          this.validateConfirmPassword() // Validate confirm password
+          this.validateConfirmPassword()
         ) {
-          console.log("Full Name:", this.fullname);
-          console.log("Email:", this.email);
-          console.log("Number:", this.phone_number);
-          console.log("Password:", this.password);
-
           try {
-            // Correctly destructure data from the signUp response
             const { data, error } = await supabase.auth.signUp({
               email: this.email,
               password: this.password,
             });
 
-            // Handle any errors returned from Supabase
-            if (error) {
-              throw error;
-            }
+            if (error) throw error;
 
-            const user_id = data.user?.id; // Safe check for user ID
-            if (!user_id) {
-              console.error("User ID is null");
-              throw new Error("Failed to get user ID during signup");
-            }
+            const user_id = data.user?.id;
+            if (!user_id) throw new Error("Failed to get user ID during signup");
 
-            // Save user ID to localStorage
             localStorage.setItem("user_id", user_id);
 
-            // Insert user info into the "users_info" table
-            const { error: insertError } = await supabase
-              .from("users_info")
-              .insert([
-                {
-                  id: user_id,
-                  email: this.email,
-                  phone_number: this.phone_number,
-                  fullname: this.fullname,
-                },
-              ]); // Ensure you're inserting the correct ID
+            const { error: insertError } = await supabase.from("users_info").insert([
+              {
+                id: user_id,
+                email: this.email,
+                phone_number: this.phone_number,
+                fullname: this.fullname,
+              },
+            ]);
 
-            if (insertError) {
-              console.error("Insert error:", insertError.message);
-              throw new Error("Unable to save user details");
-            }
+            if (insertError) throw new Error("Unable to save user details");
 
-            // Redirect to HomeSection.vue upon successful signup
-            this.$router.push("/homesec"); // Adjust the route as needed
+            // Show success toast on signup
+            this.showToast("Signup successful!", "success");
+            this.$router.push("/homesec");
           } catch (error) {
-            alert(`Signup error: ${error.message}`);
+            this.showToast(`Signup error: ${error.message}`, "error");
           }
         } else {
-          alert("Please correct the errors in the signup form.");
+          this.showToast("Please correct the errors in the signup form.", "error");
         }
       }
     },
