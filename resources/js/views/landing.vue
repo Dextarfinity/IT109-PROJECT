@@ -135,9 +135,17 @@
           <div class="w-full sm:w-1/2 p-6">
             <div class="carousel" aria-label="Gallery">
               <ol class="carousel__viewport">
-                <li id="carousel__slide1" tabindex="0" class="carousel__slide">
+                <li
+                  id="carousel__slide1"
+                  tabindex="0"
+                  class="carousel__slide relative group"
+                >
                   <div class="carousel__snapper">
-                    <img src="./images/carousel1.png" alt="Image 1" />
+                    <img
+                      src="./images/carousel1.png"
+                      alt="Image 1"
+                      class="transition-opacity duration-300"
+                    />
                     <a href="#carousel__slide4" class="carousel__prev"
                       >Go to last slide</a
                     >
@@ -145,10 +153,32 @@
                       >Go to next slide</a
                     >
                   </div>
+                  <!-- Tooltip for slide 1 -->
+                  <div
+                    class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <ul class="p-4 space-y-1">
+                      <li class="py-1 text-black">
+                        📄The mobility app's main interface is sleek and intuitive, with
+                        easy-to-navigate icons and clear labels that enhance the user
+                        experience. Its modern design ensures quick access to key
+                        features, making it ideal for seamless rides and real-time
+                        updates.
+                      </li>
+                    </ul>
+                  </div>
                 </li>
-                <li id="carousel__slide2" tabindex="0" class="carousel__slide">
+                <li
+                  id="carousel__slide2"
+                  tabindex="0"
+                  class="carousel__slide relative group"
+                >
                   <div class="carousel__snapper">
-                    <img src="./images/carousel2.png" alt="Image 2" />
+                    <img
+                      src="./images/carousel2.png"
+                      alt="Image 2"
+                      class="transition-opacity duration-300"
+                    />
                     <a href="#carousel__slide1" class="carousel__prev"
                       >Go to previous slide</a
                     >
@@ -156,10 +186,30 @@
                       >Go to next slide</a
                     >
                   </div>
+                  <!-- Tooltip for slide 2 -->
+                  <div
+                    class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <ul class="p-4 space-y-1">
+                      <li class="py-1 text-black">
+                        📄- offers simple navigation with clear buttons for booking rides
+                        and viewing routes. It ensures easy access to essential features
+                        like recent rides and secured driver history with minimal effort.
+                      </li>
+                    </ul>
+                  </div>
                 </li>
-                <li id="carousel__slide3" tabindex="0" class="carousel__slide">
+                <li
+                  id="carousel__slide3"
+                  tabindex="0"
+                  class="carousel__slide relative group"
+                >
                   <div class="carousel__snapper">
-                    <img src="./images/carousel3.png" alt="Image 3" />
+                    <img
+                      src="./images/carousel3.png"
+                      alt="Image 3"
+                      class="transition-opacity duration-300"
+                    />
                     <a href="#carousel__slide2" class="carousel__prev"
                       >Go to previous slide</a
                     >
@@ -167,16 +217,47 @@
                       >Go to next slide</a
                     >
                   </div>
+                  <!-- Tooltip for slide 3 -->
+                  <div
+                    class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <ul class="p-4 space-y-1">
+                      <li class="py-1 text-black">
+                        📄- you can navigate through the app effortlessly, saving you time
+                        and making your overall experience smoother.
+                      </li>
+                    </ul>
+                  </div>
                 </li>
-                <li id="carousel__slide4" tabindex="0" class="carousel__slide">
+                <li
+                  id="carousel__slide4"
+                  tabindex="0"
+                  class="carousel__slide relative group"
+                >
                   <div class="carousel__snapper">
-                    <img src="./images/carousel4.png" alt="Image 4" />
+                    <img
+                      src="./images/carousel4.png"
+                      alt="Image 4"
+                      class="transition-opacity duration-300"
+                    />
                     <a href="#carousel__slide3" class="carousel__prev"
                       >Go to previous slide</a
                     >
                     <a href="#carousel__slide1" class="carousel__next"
                       >Go to first slide</a
                     >
+                  </div>
+                  <!-- Tooltip for slide 4 -->
+                  <div
+                    class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <ul class="p-4 space-y-1">
+                      <li class="py-1 text-black">
+                        📄The app allows users to update their profile and trip
+                        preferences instantly with just a few taps. Changes are applied in
+                        real-time, ensuring seamless updates without delays.
+                      </li>
+                    </ul>
                   </div>
                 </li>
               </ol>
