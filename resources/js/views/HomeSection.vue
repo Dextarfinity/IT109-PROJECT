@@ -8,10 +8,10 @@
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
     <!-- Content wrapper -->
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="pt-10 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <!-- Title -->
       <h1
-        class="pt-10 text-4xl sm:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down text-white"
+        class="text-4xl sm:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down text-white"
       >
         HATID KITA
       </h1>
@@ -23,7 +23,7 @@
 
       <!-- Terminal logs -->
       <div
-        class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-64 w-full max-w-2xl mx-auto overflow-y-auto mb-4 text-left animate-fade-in"
+        class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-60 w-full max-w-2xl mx-auto overflow-y-auto mb-4 text-left animate-fade-in"
       >
         <div v-for="(log, index) in terminalLogs" :key="index">
           <span class="text-green-400">$</span> {{ log }}

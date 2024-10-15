@@ -6,7 +6,7 @@
         <div class="flex-shrink-0 flex items-center">
           <!-- Logo or placeholder -->
         </div>
-        <div class="space-x-8 mt-8 ml-auto flex text-white">
+        <div class="space-x-8 mt-8 ml-auto flex text-white mb-2">
           <router-link to="/homesec"><button>Home</button></router-link>
           <router-link to="/faqssec"><button>FAQs</button></router-link>
           <router-link to="/settingsec"><button>Setting</button></router-link>
@@ -21,28 +21,28 @@
   <div class="flex lg:hidden xl:hidden">
     <footer class="footer-menu" style="z-index: 1">
       <div class="flex lg:hidden xl:hidden space-x-14">
-        <router-link to="/main">
+        <router-link to="/homesec">
           <button class="footer-button">
             <i class="bx bx-home"></i>
             <span>Home</span>
           </button>
         </router-link>
 
-        <router-link to="/faq">
+        <router-link to="/faqssec">
           <button class="footer-button">
             <i class="bx bx-question-mark"></i>
             <span>FAQs</span>
           </button>
         </router-link>
 
-        <router-link to="/setting">
+        <router-link to="/settingsec">
           <button class="footer-button">
             <i class="bx bx-cog"></i>
             <span>Setting</span>
           </button>
         </router-link>
 
-        <router-link to="/profile">
+        <router-link to="/profilesec">
           <button class="footer-button">
             <i class="bx bx-user"></i>
             <span>Profile</span>
@@ -55,7 +55,7 @@
 
 <script>
 import "boxicons/css/boxicons.min.css";
-import LogoutButton from './logoutButton.vue';
+import LogoutButton from "./logoutButton.vue";
 export default {
   name: "body",
   components: {

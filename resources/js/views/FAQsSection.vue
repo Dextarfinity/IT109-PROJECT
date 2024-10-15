@@ -27,6 +27,54 @@
       </div>
     </div>
   </section>
+  <section class="container mx-auto text-center py-6">
+    <div class="container max-w-5xl mx-auto m-4">
+      <h2 class="w-full my-2 text-4xl font-bold leading-tight text-center text-black">
+        For more questions and inquiries. Feel free to email us!
+      </h2>
+      <div class="w-full mb-6">
+        <div class="mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+      </div>
+      <div class="flex flex-wrap">
+        <!-- Right Column: Carousel -->
+        <div class="w-full sm:w-1/2 p-6">
+          <div class="flex flex-col items-center justify-center light">
+            <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+              <h2 class="text-2xl font-bold text-gray-800">Message Us!</h2>
+              <div class="w-full mb-4">
+                <div class="h-1 mx-auto gradient w-4/6 my-0 py-0 rounded-t"></div>
+              </div>
+
+              <form class="flex flex-col">
+                <input
+                  type="name"
+                  class="bg-gray-100 mb-2 text-gray-800 border-0 rounded-md p-2 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-orange-600 transition ease-in-out duration-150"
+                  placeholder="Enter your name"
+                />
+                <input
+                  type="email"
+                  class="bg-gray-100 mb-2 text-gray-800 border-0 rounded-md p-2 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-orange-600 transition ease-in-out duration-150"
+                  placeholder="Enter your email address"
+                />
+                <textarea class="textarea" placeholder="Enter a message..."></textarea>
+                <button
+                  class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                >
+                  Send message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Column: Text Content -->
+        <div class="w-full sm:w-1/2 p-6 text-start mt-6">
+          <!-- First Row: User Interface Description -->
+          <img class="w-full md:w-5/5 z-50" src=".\images\loadingscreen.gif" />
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
