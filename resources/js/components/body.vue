@@ -11,6 +11,7 @@
           <router-link to="/faqssec"><button>FAQs</button></router-link>
           <router-link to="/settingsec"><button>Setting</button></router-link>
           <router-link to="/profilesec"><button>Profile</button></router-link>
+          <LogoutButton />
         </div>
       </div>
     </nav>
@@ -54,8 +55,12 @@
 
 <script>
 import "boxicons/css/boxicons.min.css";
+import LogoutButton from './logoutButton.vue';
 export default {
   name: "body",
+  components: {
+    LogoutButton,
+  },
 };
 </script>
 

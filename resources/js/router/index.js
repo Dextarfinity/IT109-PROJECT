@@ -20,21 +20,25 @@ const routes = [
         path: "/homesec",
         name: "home",
         component: Home,
+        meta: { requiresAuth: true }
     },
     {
         path: "/faqssec",
         name: "faqs",
         component: Faq,
+        meta: { requiresAuth: true }
     },
     {
         path: "/settingsec",
         name: "setting",
         component: Setting,
+        meta: { requiresAuth: true }
     },
     {
         path: "/profilesec",
         name: "profile",
         component: Profile,
+        meta: { requiresAuth: true }
     },
 ];
 const router = createRouter({

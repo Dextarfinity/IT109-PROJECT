@@ -194,7 +194,7 @@
                 id="number"
                 name="number"
                 type="text"
-                 maxlength="11"
+                maxlength="11"
                 required
                 @input="validateNumber"
               />
@@ -326,7 +326,7 @@ export default {
         return false;
       }
     },
-    
+
     validateNumber() {
       try {
         this.phone_number = this.phone_number.replace(/[^0-9]/g, "");
@@ -339,8 +339,7 @@ export default {
         if (error.message === "Empty-number") {
           this.numberError = "Number field is empty. Please enter your number.";
         } else if (error.message === "shortNum") {
-          this.numberError =
-            "Phone number should be 11 digits long.";
+          this.numberError = "Phone number should be 11 digits long.";
         }
         return false;
       }
@@ -393,13 +392,25 @@ export default {
       if (formType === "login") {
         if (this.loginEmail && this.loginPassword) {
           try {
-            const { error } = await supabase.auth.signInWithPassword({
+            // Correctly destructure data from the signInWithPassword response
+            const { data, error } = await supabase.auth.signInWithPassword({
               email: this.loginEmail,
               password: this.loginPassword,
             });
 
+            // Handle any errors returned from Supabase
             if (error) throw error;
 
+            // Retrieve session and user from the response
+            let session = data.session; // Correctly accessing the session
+            let user = data.user; // Correctly accessing the user
+
+            // If the user account is not confirmed
+            if (session) {
+              // Check if session is not null
+              localStorage.setItem("access_token", session.access_token);
+              localStorage.setItem("refresh_token", session.refresh_token);
+            }
             // Redirect to HomeSection.vue upon successful login
             this.$router.push("/homesec"); // Adjust the route as needed
           } catch (error) {
@@ -412,19 +423,22 @@ export default {
         if (
           this.validateFullname() &&
           this.validatePassword() &&
+          this.validateNumber() &&
           this.validateConfirmPassword() // Validate confirm password
         ) {
           console.log("Full Name:", this.fullname);
           console.log("Email:", this.email);
-          console.log("number:", this.phone_number  );
+          console.log("Number:", this.phone_number);
           console.log("Password:", this.password);
 
           try {
+            // Correctly destructure data from the signUp response
             const { data, error } = await supabase.auth.signUp({
               email: this.email,
               password: this.password,
             });
 
+            // Handle any errors returned from Supabase
             if (error) {
               throw error;
             }
