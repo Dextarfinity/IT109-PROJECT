@@ -69,12 +69,20 @@
       id="form-wrapper"
       class="formwrap max-w-md w-full rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 welcome_style"
     >
-      <div id="form-container" :class="{ 'signup-active': currentForm === 'signup' }">
+      <div
+        id="form-container"
+        :class="{ 'signup-active': currentForm === 'signup' }"
+      >
         <!-- Login Form -->
         <div id="login-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">WELCOME</h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">
+            WELCOME
+          </h2>
           <p class="text-center text-black">Sign in to your account</p>
-          <form @submit.prevent="handleSubmit('login')" class="space-y-6 text-black">
+          <form
+            @submit.prevent="handleSubmit('login')"
+            class="space-y-6 text-black"
+          >
             <div class="relative">
               <input
                 v-model="loginEmail"
@@ -112,6 +120,7 @@
             <div class="flex items-center justify-between">
               <label class="flex items-center text-sm text-black">
                 <input
+                  v-model="rememberMe"
                   class="form-checkbox h-4 w-4 text-black bg-black border-black rounded"
                   type="checkbox"
                 />
@@ -142,9 +151,14 @@
 
         <!-- Sign Up Form -->
         <div id="signup-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">SIGN UP</h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">
+            SIGN UP
+          </h2>
           <p class="text-center text-black">Create your account</p>
-          <form @submit.prevent="handleSubmit('signup')" class="space-y-6 text-black">
+          <form
+            @submit.prevent="handleSubmit('signup')"
+            class="space-y-6 text-black"
+          >
             <div class="relative">
               <input
                 v-model="fullname"
@@ -159,7 +173,7 @@
               />
               <p id="nameError" class="text-red-500">{{ nameError }}</p>
               <label
-                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-semibold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-fullname"
                 >Full Name</label
               >
@@ -177,7 +191,7 @@
                 required
               />
               <label
-                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-semibold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-email"
                 >Email address</label
               >
@@ -197,7 +211,7 @@
               />
               <p id="numberError" class="text-red-500">{{ numberError }}</p>
               <label
-                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-semibold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="number"
                 >Phone number</label
               >
@@ -217,7 +231,7 @@
               />
               <p id="passwordError" class="text-red-500">{{ passwordError }}</p>
               <label
-                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-semibold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-password"
                 >Password</label
               >
@@ -240,7 +254,7 @@
                 {{ confirmPasswordError }}
               </p>
               <label
-                class="font-bold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
+                class="font-semibold absolute left-0 -top-3.5 text-black text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm"
                 for="signup-confirm-password"
                 >Confirm Password</label
               >
@@ -287,6 +301,7 @@ export default {
       //for login
       loginEmail: "",
       loginPassword: "",
+      rememberMe: false,
       //for identifying error
       nameError: "",
       numberError: "",
@@ -302,12 +317,23 @@ export default {
     const router = useRouter();
     return { router };
   },
+  mounted() {
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
+    if (savedEmail && savedPassword) {
+      this.loginEmail = savedEmail;
+      this.loginPassword = savedPassword;
+      this.rememberMe = true;
+    }
+  },
   methods: {
     // Toast functions
     showToast(message, type) {
       this.toastMessage = message;
       this.toastColor =
-        type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white";
+        type === "success"
+          ? "bg-green-500 text-white"
+          : "bg-red-500 text-white";
       this.toastVisible = true;
       setTimeout(() => {
         this.hideToast();
@@ -322,7 +348,8 @@ export default {
       try {
         if (!this.fullname.trim()) throw new Error("Empty-name");
         if (this.fullname.length < 10) throw new Error("short");
-        if (!/^[A-Za-z\s]+$/.test(this.fullname)) throw new Error("invalidName");
+        if (!/^[A-Za-z\s]+$/.test(this.fullname))
+          throw new Error("invalidName");
         this.nameError = ""; // Clear error if validation passes
         return true;
       } catch (error) {
@@ -398,7 +425,15 @@ export default {
               localStorage.setItem("access_token", session.access_token);
               localStorage.setItem("refresh_token", session.refresh_token);
             }
-
+            // "Remember Me" logic for storing email (and potentially password)
+            if (this.rememberMe) {
+              localStorage.setItem("email", this.loginEmail);
+              localStorage.setItem("password", this.loginPassword); 
+            } else {
+              // Clear localStorage if "Remember Me" is not checked
+              localStorage.removeItem("email");
+              localStorage.removeItem("password");
+            }
             // Show success toast on login
             this.showToast("Login successful!", "success");
             this.$router.push("/homesec");
@@ -424,29 +459,39 @@ export default {
             if (error) throw error;
 
             const user_id = data.user?.id;
-            if (!user_id) throw new Error("Failed to get user ID during signup");
+            if (!user_id)
+              throw new Error("Failed to get user ID during signup");
 
             localStorage.setItem("user_id", user_id);
 
-            const { error: insertError } = await supabase.from("users_info").insert([
-              {
-                id: user_id,
-                email: this.email,
-                phone_number: this.phone_number,
-                fullname: this.fullname,
-              },
-            ]);
+            const { error: insertError } = await supabase
+              .from("users_info")
+              .insert([
+                {
+                  id: user_id,
+                  email: this.email,
+                  phone_number: this.phone_number,
+                  fullname: this.fullname,
+                },
+              ]);
 
             if (insertError) throw new Error("Unable to save user details");
 
             // Show success toast on signup
             this.showToast("Signup successful!", "success");
-            this.$router.push("/homesec");
+            this.fullname = "";
+            this.email = "";
+            this.phone_number = "";
+            this.password = "";
+            this.confirmPassword = "";
           } catch (error) {
             this.showToast(`Signup error: ${error.message}`, "error");
           }
         } else {
-          this.showToast("Please correct the errors in the signup form.", "error");
+          this.showToast(
+            "Please correct the errors in the signup form.",
+            "error"
+          );
         }
       }
     },
