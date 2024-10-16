@@ -21,7 +21,7 @@
             <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)" />
           </svg>
         </div>
-        <div class="relative z-10">
+        <div class="relative z-2">
           <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Settings</h2>
           <div class="flex flex-col md:flex-row items-center mb-6">
             <div class="mb-4 md:mb-0 md:mr-6">
