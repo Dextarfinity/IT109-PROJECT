@@ -970,23 +970,30 @@ li {
   width: 100%;
   height: 100%;
   scroll-snap-align: center;
-}
-.carousel-img {
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-
+} /* Updated zoomed class */
 .zoomed {
   transform: scale(1.5); /* Adjust scale for zoom level */
   z-index: 9999;
-  position: fixed;
+  position: fixed; /* Use absolute to allow slight flexibility */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5); /* Keep the zoom centered */
+  width: auto; /* Allow flexibility in width */
+  height: auto; /* Ensure the image retains aspect ratio */
 }
 
+/* Carousel zoom container remains the same */
 .carousel-zoom-container {
   position: relative;
   overflow: hidden;
   height: 100%; /* Ensures full view height */
   width: 100%; /* Ensures full view width */
+}
+
+/* Optional: Add smooth transition when zooming in and out */
+.carousel-img {
+  transition: transform 0.3s ease, top 0.3s ease, left 0.3s ease;
+  cursor: pointer;
 }
 
 .scrollable {
