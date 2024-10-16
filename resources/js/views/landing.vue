@@ -165,7 +165,13 @@
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">📄 Tooltip text for slide 1</li>
+                      <li class="py-1 text-black">
+                        📄The mobility app's main interface is sleek and intuitive, with
+                        easy-to-navigate icons and clear labels that enhance the user
+                        experience. Its modern design ensures quick access to key
+                        features, making it ideal for seamless rides and real-time
+                        updates.
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -200,7 +206,11 @@
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">📄 Tooltip text for slide 2</li>
+                      <li class="py-1 text-black">
+                        📄- offers simple navigation with clear buttons for booking rides
+                        and viewing routes. It ensures easy access to essential features
+                        like recent rides and secured driver history with minimal effort.
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -235,7 +245,10 @@
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">📄 Tooltip text for slide 3</li>
+                      <li class="py-1 text-black">
+                        📄- you can navigate through the app effortlessly, saving you time
+                        and making your overall experience smoother.
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -270,7 +283,11 @@
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">📄 Tooltip text for slide 4</li>
+                      <li class="py-1 text-black">
+                        📄The app allows users to update their profile and trip
+                        preferences instantly with just a few taps. Changes are applied in
+                        real-time, ensuring seamless updates without delays.
+                      </li>
                     </ul>
                   </div>
                 </li>
