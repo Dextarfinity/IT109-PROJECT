@@ -135,17 +135,25 @@
           <div class="w-full sm:w-1/2 p-6">
             <div class="carousel" aria-label="Gallery">
               <ol class="carousel__viewport">
+                <!-- Slide 1 -->
                 <li
                   id="carousel__slide1"
                   tabindex="0"
                   class="carousel__slide relative group"
                 >
                   <div class="carousel__snapper">
-                    <img
-                      src="./images/carousel1.png"
-                      alt="Image 1"
-                      class="transition-opacity duration-300"
-                    />
+                    <div
+                      class="carousel-zoom-container"
+                      :class="zoomedImage === 1 ? 'scrollable' : ''"
+                    >
+                      <img
+                        src="./images/carousel1.png"
+                        alt="Image 1"
+                        class="transition-opacity duration-300 carousel-img"
+                        @click="toggleZoom(1)"
+                        :class="zoomedImage === 1 ? 'zoomed' : ''"
+                      />
+                    </div>
                     <a href="#carousel__slide4" class="carousel__prev"
                       >Go to last slide</a
                     >
@@ -153,32 +161,34 @@
                       >Go to next slide</a
                     >
                   </div>
-                  <!-- Tooltip for slide 1 -->
                   <div
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">
-                        📄The mobility app's main interface is sleek and intuitive, with
-                        easy-to-navigate icons and clear labels that enhance the user
-                        experience. Its modern design ensures quick access to key
-                        features, making it ideal for seamless rides and real-time
-                        updates.
-                      </li>
+                      <li class="py-1 text-black">📄 Tooltip text for slide 1</li>
                     </ul>
                   </div>
                 </li>
+
+                <!-- Slide 2 -->
                 <li
                   id="carousel__slide2"
                   tabindex="0"
                   class="carousel__slide relative group"
                 >
                   <div class="carousel__snapper">
-                    <img
-                      src="./images/carousel2.png"
-                      alt="Image 2"
-                      class="transition-opacity duration-300"
-                    />
+                    <div
+                      class="carousel-zoom-container"
+                      :class="zoomedImage === 2 ? 'scrollable' : ''"
+                    >
+                      <img
+                        src="./images/carousel2.png"
+                        alt="Image 2"
+                        class="transition-opacity duration-300 carousel-img"
+                        @click="toggleZoom(2)"
+                        :class="zoomedImage === 2 ? 'zoomed' : ''"
+                      />
+                    </div>
                     <a href="#carousel__slide1" class="carousel__prev"
                       >Go to previous slide</a
                     >
@@ -186,30 +196,34 @@
                       >Go to next slide</a
                     >
                   </div>
-                  <!-- Tooltip for slide 2 -->
                   <div
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">
-                        📄- offers simple navigation with clear buttons for booking rides
-                        and viewing routes. It ensures easy access to essential features
-                        like recent rides and secured driver history with minimal effort.
-                      </li>
+                      <li class="py-1 text-black">📄 Tooltip text for slide 2</li>
                     </ul>
                   </div>
                 </li>
+
+                <!-- Slide 3 -->
                 <li
                   id="carousel__slide3"
                   tabindex="0"
                   class="carousel__slide relative group"
                 >
                   <div class="carousel__snapper">
-                    <img
-                      src="./images/carousel3.png"
-                      alt="Image 3"
-                      class="transition-opacity duration-300"
-                    />
+                    <div
+                      class="carousel-zoom-container"
+                      :class="zoomedImage === 3 ? 'scrollable' : ''"
+                    >
+                      <img
+                        src="./images/carousel3.png"
+                        alt="Image 3"
+                        class="transition-opacity duration-300 carousel-img"
+                        @click="toggleZoom(3)"
+                        :class="zoomedImage === 3 ? 'zoomed' : ''"
+                      />
+                    </div>
                     <a href="#carousel__slide2" class="carousel__prev"
                       >Go to previous slide</a
                     >
@@ -217,29 +231,34 @@
                       >Go to next slide</a
                     >
                   </div>
-                  <!-- Tooltip for slide 3 -->
                   <div
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">
-                        📄- you can navigate through the app effortlessly, saving you time
-                        and making your overall experience smoother.
-                      </li>
+                      <li class="py-1 text-black">📄 Tooltip text for slide 3</li>
                     </ul>
                   </div>
                 </li>
+
+                <!-- Slide 4 -->
                 <li
                   id="carousel__slide4"
                   tabindex="0"
                   class="carousel__slide relative group"
                 >
                   <div class="carousel__snapper">
-                    <img
-                      src="./images/carousel4.png"
-                      alt="Image 4"
-                      class="transition-opacity duration-300"
-                    />
+                    <div
+                      class="carousel-zoom-container"
+                      :class="zoomedImage === 4 ? 'scrollable' : ''"
+                    >
+                      <img
+                        src="./images/carousel4.png"
+                        alt="Image 4"
+                        class="transition-opacity duration-300 carousel-img"
+                        @click="toggleZoom(4)"
+                        :class="zoomedImage === 4 ? 'zoomed' : ''"
+                      />
+                    </div>
                     <a href="#carousel__slide3" class="carousel__prev"
                       >Go to previous slide</a
                     >
@@ -247,44 +266,15 @@
                       >Go to first slide</a
                     >
                   </div>
-                  <!-- Tooltip for slide 4 -->
                   <div
                     class="absolute left-0 mt-1 w-64 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
                     <ul class="p-4 space-y-1">
-                      <li class="py-1 text-black">
-                        📄The app allows users to update their profile and trip
-                        preferences instantly with just a few taps. Changes are applied in
-                        real-time, ensuring seamless updates without delays.
-                      </li>
+                      <li class="py-1 text-black">📄 Tooltip text for slide 4</li>
                     </ul>
                   </div>
                 </li>
               </ol>
-              <aside class="carousel__navigation">
-                <ol class="carousel__navigation-list">
-                  <li class="carousel__navigation-item">
-                    <a href="#carousel__slide1" class="carousel__navigation-button"
-                      >Go to slide 1</a
-                    >
-                  </li>
-                  <li class="carousel__navigation-item">
-                    <a href="#carousel__slide2" class="carousel__navigation-button"
-                      >Go to slide 2</a
-                    >
-                  </li>
-                  <li class="carousel__navigation-item">
-                    <a href="#carousel__slide3" class="carousel__navigation-button"
-                      >Go to slide 3</a
-                    >
-                  </li>
-                  <li class="carousel__navigation-item">
-                    <a href="#carousel__slide4" class="carousel__navigation-button"
-                      >Go to slide 4</a
-                    >
-                  </li>
-                </ol>
-              </aside>
             </div>
           </div>
         </div>
@@ -324,10 +314,18 @@
             <div
               class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
             >
-              <div class="w-full pt-6 text-1xl text-gray-600 font-bold text-center">
+              <div class="w-full pt-6 text-1xl text-gray-600 font-bold text-center mb-4">
                 BSIT Student, Junior Developer, Full Stack Developer
               </div>
-              <div class="flex items-center justify-center">
+              <div class="flex justify-center items-center">
+                <button
+                  class="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-orange-300 hover:before:[box-shadow:_20px_20px_20px_30px_#f97316] duration-500 before:duration-500 hover:duration-500 underline underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur hover:underline hover:underline-offset-4 origin-left hover:decoration-2 hover:text-orange-300 relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg overflow-hidden before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-orange-500 before:rounded-full before:blur-lg after:absolute after:z-10 after:w-20 after:h-20 after:content[''] after:bg-orange-300 after:right-8 after:top-3 after:rounded-full after:blur-lg"
+                >
+                  Visit Portfolio
+                </button>
+              </div>
+
+              <div class="flex items-center justify-center mt-4">
                 <div class="flex items-center gap-4">
                   <div class="social-button">
                     <button class="relative w-12 h-12 rounded-full group">
@@ -451,10 +449,17 @@
             <div
               class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
             >
-              <div class="w-full pt-6 text-1xl font-bold text-center">
+              <div class="w-full pt-6 text-1xl font-bold text-center mb-4">
                 BSIT Student, Junior Developer, Full Stack Developer
               </div>
-              <div class="flex items-center justify-center">
+              <div class="flex justify-center items-center">
+                <button
+                  class="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-orange-300 hover:before:[box-shadow:_20px_20px_20px_30px_#f97316] duration-500 before:duration-500 hover:duration-500 underline underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur hover:underline hover:underline-offset-4 origin-left hover:decoration-2 hover:text-orange-300 relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg overflow-hidden before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-orange-500 before:rounded-full before:blur-lg after:absolute after:z-10 after:w-20 after:h-20 after:content[''] after:bg-orange-300 after:right-8 after:top-3 after:rounded-full after:blur-lg"
+                >
+                  Visit Portfolio
+                </button>
+              </div>
+              <div class="flex items-center justify-center mt-4">
                 <div class="flex items-center gap-4">
                   <div class="social-button">
                     <button class="relative w-12 h-12 rounded-full group">
@@ -578,10 +583,17 @@
             <div
               class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
             >
-              <div class="w-full pt-6 text-1xl text-gray-600 font-bold text-center">
+              <div class="w-full pt-6 text-1xl text-gray-600 font-bold text-center mb-4">
                 BSIT Student, Junior Developer, UI/UX Specialist
               </div>
-              <div class="flex items-center justify-center">
+              <div class="flex justify-center items-center">
+                <button
+                  class="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-orange-300 hover:before:[box-shadow:_20px_20px_20px_30px_#f97316] duration-500 before:duration-500 hover:duration-500 underline underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur hover:underline hover:underline-offset-4 origin-left hover:decoration-2 hover:text-orange-300 relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg overflow-hidden before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-orange-500 before:rounded-full before:blur-lg after:absolute after:z-10 after:w-20 after:h-20 after:content[''] after:bg-orange-300 after:right-8 after:top-3 after:rounded-full after:blur-lg"
+                >
+                  Visit Portfolio
+                </button>
+              </div>
+              <div class="flex items-center justify-center mt-4">
                 <div class="flex items-center gap-4">
                   <div class="social-button">
                     <button class="relative w-12 h-12 rounded-full group">
@@ -942,6 +954,30 @@ li {
   height: 100%;
   scroll-snap-align: center;
 }
+.carousel-img {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.zoomed {
+  transform: scale(1.5); /* Adjust scale for zoom level */
+  z-index: 9999;
+  position: fixed;
+}
+
+.carousel-zoom-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%; /* Ensures full view height */
+  width: 100%; /* Ensures full view width */
+}
+
+.scrollable {
+  overflow: scroll;
+  height: 100%; /* Can be adjusted based on design */
+  width: 100%;
+  position: relative;
+}
 
 @media (hover: hover) {
   .carousel__snapper {
@@ -1098,6 +1134,11 @@ li {
 <script>
 export default {
   name: "Landing",
+  data() {
+    return {
+      zoomedImage: null, // Tracks which image is zoomed
+    };
+  },
   mounted() {
     let scrollpos = window.scrollY;
     const header = document.getElementById("header");
@@ -1112,7 +1153,6 @@ export default {
       scrollpos = window.scrollY;
 
       if (scrollpos > 10) {
-        // Check if header exists before adding/removing classes
         if (header) {
           header.classList.add("bg-white", "shadow");
         }
@@ -1190,6 +1230,11 @@ export default {
       }
       return false;
     }
+  },
+  methods: {
+    toggleZoom(imageId) {
+      this.zoomedImage = this.zoomedImage === imageId ? null : imageId;
+    },
   },
 };
 </script>
