@@ -4,7 +4,7 @@
     id="settings"
     class="min-h-screen bg-gradient-to-r from-[#4a0e0e] via-[#3d2617] to-[#5e4d1f] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center"
   >
-    <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5">
+    <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden lg:mt-5">
       <div class="bg-gray-100 p-8 relative">
         <div class="absolute inset-0 bg-opacity-50 bg-gray-200">
           <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +22,13 @@
           </svg>
         </div>
         <div class="relative z-2">
-          <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Settings</h2>
-          <div class="flex flex-col md:flex-row items-center mb-6">
-            <div class="mb-4 md:mb-0 md:mr-6">
+          <h2 class="text-3xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">
+            Settings
+          </h2>
+          <div class="flex flex-col md:flex-row md:items-center mb-6">
+            <div class="mb-4 md:mb-0 md:mr-6 self-center md:self-start">
               <div
-                class="w-32 h-32 rounded-full overflow-hidden border-4 border-black shadow-lg bg-white relative"
+                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-black shadow-lg bg-white relative"
               >
                 <img
                   :src="avatarUrl || '/placeholder.svg?height=128&width=128'"
@@ -35,15 +37,19 @@
                 />
               </div>
             </div>
-            <div class="flex-1 w-full md:w-auto">
+            <div class="flex-1 text-center md:text-left">
               <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ user.name }}</h3>
               <p class="text-gray-600 mb-4">Student</p>
               <div class="space-y-3">
-                <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+                <div
+                  class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow justify-center md:justify-start"
+                >
                   <MailIcon class="w-5 h-5 text-black" />
                   <p class="text-gray-700">{{ user.email }}</p>
                 </div>
-                <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+                <div
+                  class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow justify-center md:justify-start"
+                >
                   <PhoneIcon class="w-5 h-5 text-black" />
                   <p class="text-gray-700">{{ user.phone }}</p>
                 </div>
@@ -54,20 +60,20 @@
           <!-- Avatar Selector -->
           <div class="mb-6">
             <h4 class="text-lg font-semibold text-gray-800 mb-2">Choose an Avatar</h4>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">
               <div v-for="(avatar, index) in avatars" :key="index" class="relative">
                 <img
                   :src="avatar"
                   @click="selectAvatar(avatar)"
                   :class="{ 'border-4 border-orange-600': avatar === avatarUrl }"
-                  class="w-20 h-20 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity duration-300"
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity duration-300"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="p-8">
+      <div class="p-6 sm:p-8">
         <form @submit.prevent="updatePassword" class="space-y-6">
           <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
             <LockIcon class="w-6 h-6 text-black mr-2" />
