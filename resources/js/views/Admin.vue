@@ -41,19 +41,18 @@
         </div>
 
         <!-- Left Column: Text Content -->
-        <div class="w-full sm:w-1/2 p-6 text-start mt-6 z-10">
+        <div class="w-full sm:w-1/2 p-6 text-start mt-6 z-10 animate-fade-in-down">
           <!-- First Row: User Interface Description -->
-          <!-- Call Driver Button, Location Selector, Specific Location Input -->
           <div
             class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5"
           >
             <div class="p-8">
               <div>
                 <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                  <ClockIcon class="w-6 h-6 text-black mr-2" />
-                  Recent Rides
+                  <Clock class="w-6 h-6 text-black mr-2" />
+                  Requesting Rides
                 </h4>
-                <ul class="space-y-3">
+                <ul class="space-y-3 overflow-y-auto max-h-64">
                   <li
                     v-for="ride in recentRides"
                     :key="ride.id"
@@ -61,14 +60,25 @@
                   >
                     <div class="flex justify-between items-center">
                       <span class="text-sm text-gray-600">{{ ride.date }}</span>
-                      <span class="text-sm font-medium text-lime-500">{{
-                        ride.status
-                      }}</span>
+                      <div class="flex items-center space-x-2">
+                        <!-- Accept Button (Check Icon) -->
+                        <button
+                          class="bg-lime-500 text-white p-1 rounded-full hover:bg-lime-600 transition duration-300"
+                        >
+                          <Check class="w-4 h-4" />
+                        </button>
+                        <!-- Decline Button (X Icon) -->
+                        <button
+                          class="bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition duration-300"
+                        >
+                          <Ban class="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                     <div class="mt-1 text-gray-800 flex items-center">
-                      <MapPinIcon class="w-4 h-4 text-black mr-1" />
+                      <MapPin class="w-4 h-4 text-black mr-1" />
                       {{ ride.from }}
-                      <ArrowRightIcon class="w-4 h-4 text-black mx-1" />
+                      <ArrowRight class="w-4 h-4 text-black mx-1" />
                       {{ ride.to }}
                     </div>
                   </li>
@@ -87,9 +97,11 @@ import {
   UserIcon,
   MailIcon,
   PhoneIcon,
-  ClockIcon,
-  MapPinIcon,
-  ArrowRightIcon,
+  Check,
+  Ban,
+  Clock,
+  MapPin,
+  ArrowRight,
 } from "lucide-vue-next";
 
 import { ref, computed } from "vue";
@@ -112,6 +124,8 @@ const recentRides = ref([
     to: "KINAADMAN",
     status: "Completed",
   },
+  { id: 4, date: "May 14, 2023", from: "LIBRARY", to: "CCIS", status: "Completed" },
+  { id: 5, date: "May 14, 2023", from: "LIBRARY", to: "CCIS", status: "Completed" },
 ]);
 
 const terminalLogs = ref([

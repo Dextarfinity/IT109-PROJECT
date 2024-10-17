@@ -8,31 +8,33 @@
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
     <!-- Content wrapper -->
-    <div class="pt-10 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="lg:pt-10 relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <!-- Title -->
       <h1
-        class="text-4xl sm:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down text-white"
+        class="text-4xl lg:text-6xl font-extrabold leading-tight lg:mb-4 animate-fade-in-down text-white"
       >
         HATID KITA
       </h1>
 
       <!-- Subtitle -->
-      <h3 class="text-2xl sm:text-3xl font-bold mb-6 animate-fade-in-up text-white">
+      <h3
+        class="text-2xl lg:text-3xl sm:text-3xl font-bold lg:mb-4 animate-fade-in-up text-white"
+      >
         A SYSTEM PROTOTYPE
       </h3>
 
       <!-- Terminal logs -->
       <div
-        class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-60 w-full max-w-2xl mx-auto overflow-y-auto mb-4 text-left animate-fade-in"
+        class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-40 lg:w-2/3 w-full max-w-2xl mx-auto overflow-y-auto mb-4 text-left animate-fade-in"
       >
         <div v-for="(log, index) in terminalLogs" :key="index">
           <span class="text-green-400">$</span> {{ log }}
         </div>
       </div>
 
-      <!-- Call Driver Button, Location Selector, Specific Location Input -->
+      <!-- Call Driver Button, From Select Location, To Select Location, Specific Location Input -->
       <div
-        class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center animate-fade-in-up"
+        class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 justify-center animate-fade-in-up"
       >
         <!-- Call Driver Button -->
         <button
@@ -43,12 +45,23 @@
           Call Driver
         </button>
 
-        <!-- Select Location Dropdown -->
+        <!-- From Select Location Dropdown -->
         <select
           v-model="selectedLocation"
           class="px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
         >
-          <option value="">Select Location</option>
+          <option value="">From: Select Location</option>
+          <option v-for="location in locations" :key="location" :value="location">
+            {{ location }}
+          </option>
+        </select>
+
+        <!-- To Select Location Dropdown -->
+        <select
+          v-model="toLocation"
+          class="px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        >
+          <option value="">To: Select Location</option>
           <option v-for="location in locations" :key="location" :value="location">
             {{ location }}
           </option>
@@ -97,6 +110,7 @@ const statusColors = {
 const statusColorClass = computed(() => statusColors[driverStatus.value]);
 
 const selectedLocation = ref("");
+const toLocation = ref(""); // New reactive state for To location
 const specificLocation = ref("");
 
 const locations = [
@@ -114,13 +128,13 @@ const locations = [
 ];
 
 const callDriver = () => {
-  if (!selectedLocation.value) {
-    alert("Please select a location");
+  if (!selectedLocation.value || !toLocation.value) {
+    alert("Please select both From and To locations");
     return;
   }
 
   terminalLogs.value.push(
-    `Requesting a driver for ${selectedLocation.value}${
+    `Requesting a driver from ${selectedLocation.value} to ${toLocation.value}${
       specificLocation.value ? ` - ${specificLocation.value}` : ""
     }...`
   );
