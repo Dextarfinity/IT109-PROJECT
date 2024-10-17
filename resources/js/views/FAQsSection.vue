@@ -5,7 +5,7 @@
     class="gradient h-screen bg-cover bg-center relative flex items-center justify-center"
   >
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-10 mb-10 mt-20">
       <!-- Title -->
       <h2
         class="text-4xl font-extrabold text-center mt-6 mb-4 animate-fade-in-down text-white"
@@ -14,7 +14,7 @@
       </h2>
 
       <!-- FAQs Container -->
-      <div class="space-y-6">
+      <div class="space-y-3">
         <div
           v-for="(faq, index) in faqs"
           :key="index"
@@ -27,7 +27,7 @@
       </div>
     </div>
   </section>
-  <section class="container mx-auto text-center py-6">
+  <section class="container mx-auto text-center py-12 lg:py-6">
     <div class="container max-w-5xl mx-auto m-4">
       <h2 class="w-full my-2 text-4xl font-bold leading-tight text-center text-black">
         For more questions and inquiries. Feel free to email us!

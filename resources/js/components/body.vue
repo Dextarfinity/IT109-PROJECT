@@ -19,7 +19,7 @@
     <router-view></router-view>
   </div>
   <div class="flex lg:hidden xl:hidden">
-    <footer class="footer-menu" style="z-index: 1">
+    <footer class="footer-menu" style="z-index: 10">
       <div class="flex lg:hidden xl:hidden space-x-14">
         <router-link to="/homesec">
           <button class="footer-button">
@@ -57,7 +57,7 @@
 import "boxicons/css/boxicons.min.css";
 import LogoutButton from "./logoutButton.vue";
 export default {
-  name: "body",
+  name: "MainBody",
   components: {
     LogoutButton,
   },

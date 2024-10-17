@@ -1,21 +1,22 @@
 <template>
   <Navbar />
   <section
-    id="home"
-    class="gradient h-screen bg-cover bg-center relative flex items-center justify-center"
+    id="admin"
+    class="gradient bg-cover bg-center relative flex items-center justify-center"
+    style="height: 100vh"
   >
     <!-- Background overlay -->
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
     <div class="container max-w-5xl mx-auto m-4">
-      <div class="w-full mb-6">
+      <div class="w-full lg:mb-6">
         <div class="mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
       <div class="flex flex-wrap">
         <!-- Right Column: Carousel -->
         <div class="w-full sm:w-1/2 p-6">
           <div
-            class="pt-10 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+            class="lg:pt-10 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
           >
             <!-- Title -->
             <h1
@@ -31,7 +32,7 @@
 
             <!-- Terminal logs -->
             <div
-              class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-60 w-full max-w-2xl mx-auto overflow-y-auto mb-4 text-left animate-fade-in"
+              class="bg-black bg-opacity-75 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm h-40 w-full max-w-2xl mx-auto overflow-y-auto lg:mb-4 text-left animate-fade-in"
             >
               <div v-for="(log, index) in terminalLogs" :key="index">
                 <span class="text-green-400">$</span> {{ log }}
@@ -41,12 +42,15 @@
         </div>
 
         <!-- Left Column: Text Content -->
-        <div class="w-full sm:w-1/2 p-6 text-start mt-6 z-10 animate-fade-in-down">
+        <div
+          class="w-full sm:w-1/2 p-6 text-start lg:mt-6 animate-fade-in-down mb-10"
+          style="z-index: 2"
+        >
           <!-- First Row: User Interface Description -->
           <div
-            class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5"
+            class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden lg:mt-5"
           >
-            <div class="p-8">
+            <div class="p-6 lg:p-8">
               <div>
                 <h4
                   class="text-xl font-semibold text-gray-800 mb-4 flex items-center animate-fade-in"
@@ -54,7 +58,7 @@
                   <Clock class="w-6 h-6 text-black mr-2" />
                   Requesting Rides
                 </h4>
-                <ul class="space-y-3 overflow-y-auto max-h-64 animate-fade-in">
+                <ul class="space-y-3 overflow-y-auto max-h-32 animate-fade-in">
                   <li
                     v-for="ride in recentRides"
                     :key="ride.id"
