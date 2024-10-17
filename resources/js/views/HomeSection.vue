@@ -141,13 +141,13 @@ const callDriver = () => {
   driverStatus.value = "Finding a driver";
 
   setTimeout(() => {
-    terminalLogs.value.push("Driver found! ETA: 5 minutes");
-    driverStatus.value = "Driver is on the way";
+    terminalLogs.value.push("Driver found! ETA: Couple of minutes");
+    driverStatus.value = "Waiting Driver to accept...";
   }, 3000);
 
   setTimeout(() => {
-    terminalLogs.value.push("Driver has arrived at your location");
-    driverStatus.value = "Driver has arrived";
+    terminalLogs.value.push("Driver has accepted your request");
+    driverStatus.value = "Driver Accepted";
   }, 8000);
 };
 </script>

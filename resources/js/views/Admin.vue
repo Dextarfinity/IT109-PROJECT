@@ -48,11 +48,13 @@
           >
             <div class="p-8">
               <div>
-                <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <h4
+                  class="text-xl font-semibold text-gray-800 mb-4 flex items-center animate-fade-in"
+                >
                   <Clock class="w-6 h-6 text-black mr-2" />
                   Requesting Rides
                 </h4>
-                <ul class="space-y-3 overflow-y-auto max-h-64">
+                <ul class="space-y-3 overflow-y-auto max-h-64 animate-fade-in">
                   <li
                     v-for="ride in recentRides"
                     :key="ride.id"
@@ -63,19 +65,19 @@
                       <div class="flex items-center space-x-2">
                         <!-- Accept Button (Check Icon) -->
                         <button
-                          class="bg-lime-500 text-white p-1 rounded-full hover:bg-lime-600 transition duration-300"
+                          class="bg-lime-500 animate-fade-in text-white p-1 rounded-full hover:bg-lime-600 transition duration-300"
                         >
                           <Check class="w-4 h-4" />
                         </button>
                         <!-- Decline Button (X Icon) -->
                         <button
-                          class="bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition duration-300"
+                          class="animate-fade-in bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition duration-300"
                         >
                           <Ban class="w-4 h-4" />
                         </button>
                       </div>
                     </div>
-                    <div class="mt-1 text-gray-800 flex items-center">
+                    <div class="mt-1 text-gray-800 flex items-center animate-fade-in">
                       <MapPin class="w-4 h-4 text-black mr-1" />
                       {{ ride.from }}
                       <ArrowRight class="w-4 h-4 text-black mx-1" />
@@ -93,19 +95,9 @@
 </template>
 
 <script setup>
-import {
-  UserIcon,
-  MailIcon,
-  PhoneIcon,
-  Check,
-  Ban,
-  Clock,
-  MapPin,
-  ArrowRight,
-} from "lucide-vue-next";
+import { Check, Ban, Clock, MapPin, ArrowRight } from "lucide-vue-next";
 
 import { ref, computed } from "vue";
-import { TruckIcon } from "lucide-vue-next";
 const user = ref({
   name: "John Doe",
   email: "john.doe@example.com",
@@ -115,17 +107,16 @@ const user = ref({
 const avatarUrl = ref(null);
 
 const recentRides = ref([
-  { id: 1, date: "May 15, 2023", from: "CED", to: "HOSTEL", status: "Completed" },
-  { id: 2, date: "May 14, 2023", from: "LIBRARY", to: "CCIS", status: "Completed" },
+  { id: 1, date: "May 15, 2023", from: "CED", to: "HOSTEL" },
+  { id: 2, date: "May 14, 2023", from: "LIBRARY", to: "CCIS" },
   {
     id: 3,
     date: "May 13, 2023",
     from: "NEW ADMIN",
     to: "KINAADMAN",
-    status: "Completed",
   },
-  { id: 4, date: "May 14, 2023", from: "LIBRARY", to: "CCIS", status: "Completed" },
-  { id: 5, date: "May 14, 2023", from: "LIBRARY", to: "CCIS", status: "Completed" },
+  { id: 4, date: "May 14, 2023", from: "LIBRARY", to: "CCIS" },
+  { id: 5, date: "May 14, 2023", from: "LIBRARY", to: "CCIS" },
 ]);
 
 const terminalLogs = ref([
