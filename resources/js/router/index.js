@@ -5,6 +5,7 @@ import Home from "@/views/HomeSection.vue";
 import Faq from "@/views/FAQsSection.vue";
 import Setting from "@/views/SettingsSection.vue";
 import Profile from "@/views/ProfileSection.vue";
+import Administrator from "@/views/Admin.vue";
 const routes = [
     {
         path: "/",
@@ -38,6 +39,11 @@ const routes = [
         path: "/profilesec",
         name: "profile",
         component: Profile,
+        meta: { requiresAuth: true }
+    },    {
+        path: "/adminsection",
+        name: "admin",
+        component: Administrator,
         meta: { requiresAuth: true }
     },
 ];
