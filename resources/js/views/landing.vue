@@ -751,7 +751,7 @@
         </g>
       </g>
     </svg>
-    <section class="container mx-auto text-center py-6 mb-12">
+    <section class="container mx-auto text-center py-6">
       <div class="container max-w-5xl mx-auto m-8">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
           Find Us
@@ -816,13 +816,13 @@
         </div>
       </div>
     </section>
-    <!--Footer-->
-    <footer class="bg-white">
-      <div class="bottom-footer">
-        <p>Copyright &copy; Hatid KITA - All rights reserved</p>
-      </div>
-    </footer>
   </div>
+  <!--Footer-->
+  <footer class="bg-white">
+    <div class="bottom-footer">
+      <p>Copyright &copy; Hatid KITA - All rights reserved</p>
+    </div>
+  </footer>
 </template>
 
 <style>
