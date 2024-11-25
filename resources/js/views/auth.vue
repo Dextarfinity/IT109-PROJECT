@@ -69,20 +69,12 @@
       id="form-wrapper"
       class="formwrap max-w-md w-full rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 welcome_style"
     >
-      <div
-        id="form-container"
-        :class="{ 'signup-active': currentForm === 'signup' }"
-      >
+      <div id="form-container" :class="{ 'signup-active': currentForm === 'signup' }">
         <!-- Login Form -->
         <div id="login-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">
-            WELCOME
-          </h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">WELCOME</h2>
           <p class="text-center text-black">Sign in to your account</p>
-          <form
-            @submit.prevent="handleSubmit('login')"
-            class="space-y-6 text-black"
-          >
+          <form @submit.prevent="handleSubmit('login')" class="space-y-6 text-black">
             <div class="relative">
               <input
                 v-model="loginEmail"
@@ -151,14 +143,9 @@
 
         <!-- Sign Up Form -->
         <div id="signup-form" class="form-slide">
-          <h2 class="text-center text-4xl font-extrabold text-black">
-            SIGN UP
-          </h2>
+          <h2 class="text-center text-4xl font-extrabold text-black">SIGN UP</h2>
           <p class="text-center text-black">Create your account</p>
-          <form
-            @submit.prevent="handleSubmit('signup')"
-            class="space-y-6 text-black"
-          >
+          <form @submit.prevent="handleSubmit('signup')" class="space-y-6 text-black">
             <div class="relative">
               <input
                 v-model="fullname"
@@ -331,9 +318,7 @@ export default {
     showToast(message, type) {
       this.toastMessage = message;
       this.toastColor =
-        type === "success"
-          ? "bg-green-500 text-white"
-          : "bg-red-500 text-white";
+        type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white";
       this.toastVisible = true;
       setTimeout(() => {
         this.hideToast();
@@ -347,17 +332,16 @@ export default {
     validateFullname() {
       try {
         if (!this.fullname.trim()) throw new Error("Empty-name");
-        if (this.fullname.length < 10) throw new Error("short");
-        if (!/^[A-Za-z\s]+$/.test(this.fullname))
-          throw new Error("invalidName");
+        if (this.fullname.length < 10) throw new Error("Short");
+        if (!/^[A-Za-z\s]+$/.test(this.fullname)) throw new Error("invalidName");
         this.nameError = ""; // Clear error if validation passes
         return true;
       } catch (error) {
         if (error.message === "Empty-name") {
           this.nameError = "Full name is required.";
-        } else if (error.message === "short") {
+        } else if (error.message === "Short") {
           this.nameError = "Name should be at least 10 characters long.";
-        } else if (error.message === "invalidName") {
+        } else if (error.message === "Invalid Name") {
           this.nameError = "Name can only contain letters and spaces.";
         }
         return false;
@@ -374,7 +358,7 @@ export default {
       } catch (error) {
         if (error.message === "Empty-number") {
           this.numberError = "Number field is empty. Please enter your number.";
-        } else if (error.message === "shortNum") {
+        } else if (error.message === "Short Number") {
           this.numberError = "Phone number should be 11 digits long.";
         }
         return false;
@@ -383,12 +367,12 @@ export default {
     validatePassword() {
       try {
         if (!this.password.trim()) throw new Error("Empty-password");
-        if (this.password.length < 8) throw new Error("shortPassword");
-        if (!/[A-Z]/.test(this.password)) throw new Error("noUppercase");
-        if (!/[a-z]/.test(this.password)) throw new Error("noLowercase");
-        if (!/[0-9]/.test(this.password)) throw new Error("noDigit");
+        if (this.password.length < 8) throw new Error("Short Password");
+        if (!/[A-Z]/.test(this.password)) throw new Error("No Uppercase");
+        if (!/[a-z]/.test(this.password)) throw new Error("No Lowercase");
+        if (!/[0-9]/.test(this.password)) throw new Error("No Digit");
         if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password))
-          throw new Error("noSpecialCharacter");
+          throw new Error("No Special Character");
         this.passwordError = "";
         return true;
       } catch (error) {
@@ -428,7 +412,7 @@ export default {
             // "Remember Me" logic for storing email (and potentially password)
             if (this.rememberMe) {
               localStorage.setItem("email", this.loginEmail);
-              localStorage.setItem("password", this.loginPassword); 
+              localStorage.setItem("password", this.loginPassword);
             } else {
               // Clear localStorage if "Remember Me" is not checked
               localStorage.removeItem("email");
@@ -459,26 +443,26 @@ export default {
             if (error) throw error;
 
             const user_id = data.user?.id;
-            if (!user_id)
-              throw new Error("Failed to get user ID during signup");
+            if (!user_id) throw new Error("Failed to get user ID during signup");
 
             localStorage.setItem("user_id", user_id);
 
-            const { error: insertError } = await supabase
-              .from("users_info")
-              .insert([
-                {
-                  id: user_id,
-                  email: this.email,
-                  phone_number: this.phone_number,
-                  fullname: this.fullname,
-                },
-              ]);
+            const { error: insertError } = await supabase.from("users_info").insert([
+              {
+                id: user_id,
+                email: this.email,
+                phone_number: this.phone_number,
+                fullname: this.fullname,
+              },
+            ]);
 
             if (insertError) throw new Error("Unable to save user details");
 
             // Show success toast on signup
-            this.showToast("Signup successful!", "success");
+            this.showToast(
+              "Signup successful! Confirm your email to proceed logging in!",
+              "success"
+            );
             this.fullname = "";
             this.email = "";
             this.phone_number = "";
@@ -488,10 +472,7 @@ export default {
             this.showToast(`Signup error: ${error.message}`, "error");
           }
         } else {
-          this.showToast(
-            "Please correct the errors in the signup form.",
-            "error"
-          );
+          this.showToast("Please correct the errors in the signup form.", "error");
         }
       }
     },
