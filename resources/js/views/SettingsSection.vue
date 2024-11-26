@@ -4,56 +4,76 @@
     id="settings"
     class="min-h-screen bg-gradient-to-r from-[#4a0e0e] via-[#3d2617] to-[#5e4d1f] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center"
   >
-    <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5">
+    <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden lg:mt-5">
       <div class="bg-gray-100 p-8 relative">
         <div class="absolute inset-0 bg-opacity-50 bg-gray-200">
           <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
-            <pattern id="pattern-circles" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <pattern
+              id="pattern-circles"
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
               <circle cx="10" cy="10" r="1.6" fill="#a0aec0" />
             </pattern>
             <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)" />
           </svg>
         </div>
-        <div class="relative z-10">
-          <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Settings</h2>
-          <div class="flex flex-col md:flex-row items-center mb-6">
-            <div class="mb-4 md:mb-0 md:mr-6">
-              <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-black shadow-lg bg-white relative">
+        <div class="relative z-2">
+          <h2 class="text-3xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">
+            Settings
+          </h2>
+          <div class="flex flex-col md:flex-row md:items-center mb-6">
+            <div class="mb-4 md:mb-0 md:mr-6 self-center md:self-start">
+              <div
+                class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-black shadow-lg bg-white relative"
+              >
                 <img
                   :src="avatarUrl || '/placeholder.svg?height=128&width=128'"
                   alt=""
                   class="w-full h-full object-cover"
                 />
-                <label for="avatar-upload" class="absolute bottom-0 right-0 bg-black rounded-full p-2 cursor-pointer hover:bg-orange-950 transition-colors duration-300 me-5">
-                  <CameraIcon class="w-5 h-5 text-white" />
-                  <input
-                    id="avatar-upload"
-                    type="file"
-                    @change="handleAvatarUpload"
-                    class="hidden"
-                    accept="image/*"
-                  />
-                </label>
               </div>
             </div>
-            <div class="flex-1 w-full md:w-auto">
+            <div class="flex-1 text-center md:text-left">
               <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ user.name }}</h3>
               <p class="text-gray-600 mb-4">Student</p>
               <div class="space-y-3">
-                <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+                <div
+                  class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow justify-center md:justify-start"
+                >
                   <MailIcon class="w-5 h-5 text-black" />
                   <p class="text-gray-700">{{ user.email }}</p>
                 </div>
-                <div class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow">
+                <div
+                  class="flex items-center space-x-3 bg-white rounded-lg p-3 shadow justify-center md:justify-start"
+                >
                   <PhoneIcon class="w-5 h-5 text-black" />
                   <p class="text-gray-700">{{ user.phone }}</p>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Avatar Selector -->
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2">Choose an Avatar</h4>
+            <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">
+              <div v-for="(avatar, index) in avatars" :key="index" class="relative">
+                <img
+                  :src="avatar"
+                  @click="selectAvatar(avatar)"
+                  :class="{ 'border-4 border-orange-600': avatar === avatarUrl }"
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity duration-300"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="p-8">
+      <div class="p-6 sm:p-8">
         <form @submit.prevent="updatePassword" class="space-y-6">
           <h4 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
             <LockIcon class="w-6 h-6 text-black mr-2" />
@@ -68,7 +88,10 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
-              <label for="current-password" class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600">
+              <label
+                for="current-password"
+                class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600"
+              >
                 Current Password
               </label>
             </div>
@@ -80,7 +103,10 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
-              <label for="new-password" class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600">
+              <label
+                for="new-password"
+                class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600"
+              >
                 New Password
               </label>
             </div>
@@ -92,7 +118,10 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                 required
               />
-              <label for="confirm-new-password" class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600">
+              <label
+                for="confirm-new-password"
+                class="absolute left-3 -top-2.5 bg-white px-1 text-sm text-gray-600"
+              >
                 Confirm New Password
               </label>
             </div>
@@ -110,54 +139,66 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { UserIcon, MailIcon, PhoneIcon, LockIcon, CameraIcon } from 'lucide-vue-next';
+import { ref } from "vue";
+import { MailIcon, PhoneIcon, LockIcon } from "lucide-vue-next";
 import Navbar from "@/components/body.vue";
 
+// Directly importing avatar images
+import avatar1 from "./images/avatars/avatar1.png";
+import avatar2 from "./images/avatars/avatar2.png";
+import avatar3 from "./images/avatars/avatar3.png";
+import avatar4 from "./images/avatars/avatar4.png";
+import avatar5 from "./images/avatars/avatar5.png";
+import avatar6 from "./images/avatars/avatar6.png";
+import avatar7 from "./images/avatars/avatar7.png";
+import avatar8 from "./images/avatars/avatar8.png";
+import avatar9 from "./images/avatars/avatar9.png";
+
+// User data
 const user = ref({
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  phone: '+1 234 567 8900',
+  name: "John Doe",
+  email: "john.doe@example.com",
+  phone: "+1 234 567 8900",
 });
 
-const avatarUrl = ref(null);
-const currentPassword = ref('');
-const newPassword = ref('');
-const confirmNewPassword = ref('');
+// Avatar URLs, using imported images
+const avatars = ref([
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
+  avatar8,
+  avatar9,
+]);
 
-const handleAvatarUpload = (event) => {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      avatarUrl.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    alert('Please upload a valid image file.');
-  }
+// Default avatar selection
+const avatarUrl = ref(null);
+
+// Password fields
+const currentPassword = ref("");
+const newPassword = ref("");
+const confirmNewPassword = ref("");
+
+// Avatar selection handler
+const selectAvatar = (avatar) => {
+  console.log("Selected avatar:", avatar); // Debugging log to check which avatar is selected
+  avatarUrl.value = avatar; // Update the selected avatar
 };
 
+// Password update handler
 const updatePassword = () => {
   if (newPassword.value !== confirmNewPassword.value) {
-    alert('New passwords do not match.');
+    alert("New passwords do not match.");
     return;
   }
-  // Implement password update logic here
-  console.log('Password updated');
-  currentPassword.value = '';
-  newPassword.value = '';
-  confirmNewPassword.value = '';
+  console.log("Password updated");
+
+  // Clear password fields after update
+  currentPassword.value = "";
+  newPassword.value = "";
+  confirmNewPassword.value = "";
 };
 </script>
-
-<style scoped>
-.fade-in {
-  animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-</style>
