@@ -87,7 +87,7 @@
                     <h2 class="text-center text-4xl font-extrabold text-black">
                         WELCOME
                     </h2>
-                    <p class="text-center text-black">
+                    <p class="text-center text-black pb-5">
                         Sign in to your account
                     </p>
                     <form
@@ -183,7 +183,7 @@
                     <h2 class="text-center text-4xl font-extrabold text-black">
                         SIGN UP
                     </h2>
-                    <p class="text-center text-black">Create your account</p>
+                    <p class="text-center text-black pb-5">Create your account</p>
                     <form
                         @submit.prevent="handleSubmit('signup')"
                         class="space-y-6 text-black"
