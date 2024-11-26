@@ -6,7 +6,7 @@
   >
 
     <div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl overflow-hidden mt-5">
-      <div class="bg-gray-100 p-8 relative">
+      <div class="bg-gray-100 px-8 py-4 relative">
         <div class="absolute inset-0 bg-opacity-50 bg-gray-200">
           <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
             <pattern id="pattern-circles" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
