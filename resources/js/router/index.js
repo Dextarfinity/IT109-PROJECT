@@ -6,6 +6,8 @@ import Faq from "@/views/FAQsSection.vue";
 import Setting from "@/views/SettingsSection.vue";
 import Profile from "@/views/ProfileSection.vue";
 import Administrator from "@/views/Admin.vue";
+import ForgotPass from "@/views/ForgotPass.vue";
+import UpdatePass from "@/views/UpdatePass.vue";
 const routes = [
     {
         path: "/",
@@ -17,6 +19,17 @@ const routes = [
         name: "Auth",
         component: Authentication,
     },
+    {
+        path: "/forgotpass",
+        name: "Forgotpass",
+        component: ForgotPass,
+    },
+    {
+        path: "/updatepass",
+        name: "Updatepass",
+        component: UpdatePass,
+    },
+
     {
         path: "/homesec",
         name: "home",

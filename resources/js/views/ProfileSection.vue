@@ -36,7 +36,7 @@
               >
                 <img
                   :src="avatarUrl || '/placeholder.svg?height=128&width=128'"
-                  alt="User Avatar"
+                  alt=""
                   class="w-full h-full object-cover"
                 />
               </div>
